@@ -45,13 +45,19 @@
 ;; wrap words for org-mode
 (add-hook 'org-mode-hook '(lambda() (visual-line-mode 1)))
 
-;; org-mode: org-store-link, org-capture, org-agenda keybindings
+;; org-mode: org-store-link, org-capture keybindings
 (global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 
 ;; todo keywords
 (setq org-todo-keywords '((type "TODO(t)" "WORKING(w)" "|" "FAIL(f)" "CANCEL(c)" "DONE(d)")))
+
+;; enable DONE logging
+(setq org-log-done 1)
+
+;; org-agenda
+(global-set-key (kbd "C-c a") 'org-agenda)
+(setq org-agenda-files '("~/docs/org/anki/anki.org"))
 
 ;; prevent emacs from asking if it is safe to laod the theme
 (setq custom-safe-themes t)
@@ -70,6 +76,8 @@
 ;; start org-roam-mode when emacs starts
 (add-hook 'after-init-hook 'org-roam-mode)
 
+(setq org-roam-directory "~/docs/org")
+
 ;; define key bindings for org-roam
 (global-set-key (kbd "C-c n r") #'org-roam-buffer-toggle-display)
 (global-set-key (kbd "C-c n i") #'org-roam-insert)
@@ -79,3 +87,41 @@
 
 ;; assign undo to C-z
 (global-set-key (kbd "C-z") 'undo)
+
+;; install org-download
+(use-package org-download)
+(add-hook 'dired-mode-hook 'org-download-enable)
+
+(setq org-download-heading-lvl nil)
+(setq org-download-image-dir "./images")
+(setq org-download-method 'directory)
+
+;; install undo-tree
+(use-package undo-tree)
+(global-undo-tree-mode 1)
+
+(setq evil-want-C-u-scroll t)
+
+;; evil-mode
+(setq evil-want-abbrev-expand-on-insert-exit nil)
+(setq evil-want-keybinding nil)
+(use-package evil
+  :config
+  (evil-mode 1)
+  (setq evil-undo-system 'undo-tree))
+(use-package evil-collection
+  :after (evil)
+  :config
+  (setq evil-collection-mode-list '(dired))
+  (evil-collection-init))
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1))
+(use-package evil-org
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+	    (lambda () (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
