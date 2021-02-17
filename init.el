@@ -66,10 +66,6 @@
 (use-package underwater-theme)
 (load-theme 'underwater)
 
-;; line cursor and no blink
-(set-default 'cursor-type '(bar . 1))
-(blink-cursor-mode 0)
-
 ;; install org-roam
 (use-package org-roam)
 
@@ -84,9 +80,6 @@
 (global-set-key (kbd "C-c n /") #'org-roam-find-file)
 (global-set-key (kbd "C-c n b") #'org-roam-switch-to-buffer)
 (global-set-key (kbd "C-c n d") #'org-roam-find-directory)
-
-;; assign undo to C-z
-(global-set-key (kbd "C-z") 'undo)
 
 ;; install org-download
 (use-package org-download)
@@ -125,3 +118,31 @@
 	    (lambda () (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+
+;; install persist
+(use-package persist)
+
+;; install org-drill
+(add-to-list 'load-path "~/repos/proj/org-drill")
+(require 'org-drill)
+
+(setq org-drill-hide-item-headings-p t)
+(setq org-drill-maximum-items-per-session 10)
+(setq org-drill-save-buffers-after-drill-sessions-p nil)
+(setq org-drill-spaced-repetition-algorithm 'sm2)
+(setq org-drill-add-random-noise-to-intervals-p t)
+
+;; custom variables
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(persist use-package undo-tree underwater-theme org-roam org-download evil-surround evil-org evil-collection auto-compile)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
