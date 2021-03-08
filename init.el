@@ -54,54 +54,36 @@
 
 ;; enable DONE logging
 (setq org-log-done 1)
+(setq org-log-into-drawer t)
 
-;; org-agenda
-(global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-agenda-files '("~/docs/org/anki/anki.org"))
-
-;; prevent emacs from asking if it is safe to laod the theme
+;; prevent emacs from asking if it is safe to load the theme
 (setq custom-safe-themes t)
 
 ;; set theme
 (use-package underwater-theme)
 (load-theme 'underwater)
 
-;; install org-roam
-(use-package org-roam)
-
-;; start org-roam-mode when emacs starts
-(add-hook 'after-init-hook 'org-roam-mode)
-
-(setq org-roam-directory "~/docs/org")
-
-;; define key bindings for org-roam
-(global-set-key (kbd "C-c n r") #'org-roam-buffer-toggle-display)
-(global-set-key (kbd "C-c n i") #'org-roam-insert)
-(global-set-key (kbd "C-c n /") #'org-roam-find-file)
-(global-set-key (kbd "C-c n b") #'org-roam-switch-to-buffer)
-(global-set-key (kbd "C-c n d") #'org-roam-find-directory)
+(setq org-download-heading-lvl nil)
+(setq org-download-image-dir "./images")
+(setq org-download-method 'directory)
 
 ;; install org-download
 (use-package org-download)
 (add-hook 'dired-mode-hook 'org-download-enable)
-
-(setq org-download-heading-lvl nil)
-(setq org-download-image-dir "./images")
-(setq org-download-method 'directory)
 
 ;; install undo-tree
 (use-package undo-tree)
 (global-undo-tree-mode 1)
 
 (setq evil-want-C-u-scroll t)
+(setq evil-undo-system 'undo-tree)
 
 ;; evil-mode
 (setq evil-want-abbrev-expand-on-insert-exit nil)
 (setq evil-want-keybinding nil)
 (use-package evil
   :config
-  (evil-mode 1)
-  (setq evil-undo-system 'undo-tree))
+  (evil-mode 1))
 (use-package evil-collection
   :after (evil)
   :config
@@ -123,11 +105,12 @@
 (use-package persist)
 
 ;; install org-drill
-(add-to-list 'load-path "~/repos/proj/org-drill")
+(add-to-list 'load-path "~/.config/emacs/plugins/org-drill")
 (require 'org-drill)
 
 (setq org-drill-hide-item-headings-p t)
 (setq org-drill-maximum-items-per-session 10)
+(setq org-drill-maximum-duration nil)
 (setq org-drill-save-buffers-after-drill-sessions-p nil)
 (setq org-drill-spaced-repetition-algorithm 'sm2)
 (setq org-drill-add-random-noise-to-intervals-p t)
