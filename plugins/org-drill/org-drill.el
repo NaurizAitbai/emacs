@@ -2043,7 +2043,7 @@ RESCHEDULE-FN is the function to reschedule."
   (prog1 (cond
           ((oref session drill-answer)
            (org-drill-with-replaced-entry-text
-            (format "\nAnswer:\n\n  %s\n" (oref session drill-answer))
+            (format "Answer:\n%s\n" (oref session drill-answer))
             (funcall reschedule-fn session)
             ))
           (t

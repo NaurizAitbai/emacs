@@ -109,7 +109,7 @@
 (require 'org-drill)
 
 (setq org-drill-hide-item-headings-p t)
-(setq org-drill-maximum-items-per-session 10)
+(setq org-drill-maximum-items-per-session 6)
 (setq org-drill-maximum-duration nil)
 (setq org-drill-save-buffers-after-drill-sessions-p nil)
 (setq org-drill-spaced-repetition-algorithm 'sm2)
