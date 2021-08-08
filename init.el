@@ -112,14 +112,32 @@
 
 (setq org-drill-hide-item-headings-p t)
 (setq org-drill-save-buffers-after-drill-sessions-p nil)
-(setq org-drill-maximum-items-per-session 12)
+(setq org-drill-maximum-items-per-session 11)
 (setq org-drill-spaced-repetition-algorithm 'sm2)
 (setq org-drill-add-random-noise-to-intervals-p t)
 
 ;; python
 (setq org-src-preserve-indentation t)
-
 (setq org-edit-src-content-indentation 0)
+
+;; org-roam
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory (file-truename "~/annex/roam/"))
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+	 ("C-c n f" . org-roam-node-find)
+	 ("C-c n g" . org-roam-graph)
+	 ("C-c n i" . org-roam-node-insert)
+	 ("C-c n c" . org-roam-capture)
+	 ("C-M-i"   . completion-at-point)
+	 ;; Dailies
+	 ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  (org-roam-setup))
 
 (add-hook 'org-mode-hook (lambda () (electric-indent-mode -1)))
 (custom-set-variables
@@ -127,7 +145,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files '("~/docs/org/index.org")))
+ '(org-agenda-files '("~/docs/org/index.org"))
+ '(package-selected-packages
+   '(org-roam use-package undo-tree underwater-theme persist org-download evil-surround evil-org evil-collection auto-compile)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
