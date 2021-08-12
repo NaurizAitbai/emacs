@@ -128,6 +128,20 @@
   :custom
   (org-roam-directory (file-truename "~/annex/roam/"))
   (org-roam-completion-everywhere t)
+  (org-roam-capture-templates
+   '(("d" "default" plain
+      "%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     )
+   )
+  (org-roam-capture-ref-templates
+   '(("u" "urls" plain
+      (file "~/annex/roam/templates/url.org")
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: url\n")
+      :unnarrowed t)
+     )
+   )
   :bind (("C-c n l" . org-roam-buffer-toggle)
 	 ("C-c n f" . org-roam-node-find)
 	 ("C-c n g" . org-roam-graph)
@@ -137,7 +151,10 @@
 	 ;; Dailies
 	 ("C-c n j" . org-roam-dailies-capture-today))
   :config
-  (org-roam-setup))
+  (org-roam-setup)
+)
+
+(require 'org-roam-protocol)
 
 (add-hook 'org-mode-hook (lambda () (electric-indent-mode -1)))
 (custom-set-variables
@@ -146,6 +163,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files '("~/docs/org/index.org"))
+ '(org-modules
+   '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus ol-info ol-irc ol-mhe org-protocol ol-rmail ol-w3m))
  '(package-selected-packages
    '(org-roam use-package undo-tree underwater-theme persist org-download evil-surround evil-org evil-collection auto-compile)))
 (custom-set-faces
