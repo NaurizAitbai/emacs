@@ -112,13 +112,17 @@
 
 (setq org-drill-hide-item-headings-p t)
 (setq org-drill-save-buffers-after-drill-sessions-p nil)
-(setq org-drill-maximum-items-per-session 11)
+(setq org-drill-maximum-items-per-session 10)
 (setq org-drill-spaced-repetition-algorithm 'sm2)
 (setq org-drill-add-random-noise-to-intervals-p t)
 
 ;; python
 (setq org-src-preserve-indentation t)
 (setq org-edit-src-content-indentation 0)
+
+(setq org-roam-db-node-include-function
+      (lambda ()
+	(not (member "drill" (org-get-tags)))))
 
 ;; org-roam
 (use-package org-roam
